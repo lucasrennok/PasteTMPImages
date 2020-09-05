@@ -1,6 +1,26 @@
-page-landing{
+.page-landing{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.dropBox{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+
+.dropBox div{
+    border-radius: 5rem;
+    background: var(--color-background);
+    padding: 15rem 5rem;
+}
+
+button{
+    border-style: double;
+    background: var(--color-button);
+    margin-top: 0.5rem;
+    border-radius: 5rem;
+    padding: 0.3rem 1rem;
 }
