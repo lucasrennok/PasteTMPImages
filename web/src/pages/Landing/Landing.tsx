@@ -1,11 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './styles.css'
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 function Landing() {
   return (
     <div className="page-landing">
-      <h1>test</h1>
+        <PageHeader idPaste="0" />
     </div>
   );
 }
