@@ -33,11 +33,25 @@ function Landing() {
         const id = getRandomId();
         //Save at db
         setUrlIdFiles('ID: '+ id + ' | Link: ' + 'localhost:3000/'+id);
-        // saveAs(allFiles[0])
-
+    
+        console.log(allFiles)
         //Reset files
         setAllFiles([])
-        setAllFilesText([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)])
+        setAllFilesText([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)]);
+    
+        let reader = new FileReader();
+
+        reader.readAsArrayBuffer(allFiles[0]);
+        reader.onloadend = function(){
+            console.log(reader.result);
+            
+            //I can store reader.result at database... name and type too
+            //@ts-ignore
+            let newfile = new File([reader.result], allFiles[0].name, {type: allFiles[0].type});
+            console.log(newfile);
+            saveAs(newfile)
+        }
+        // saveAs(File)
     }
 
     return (
