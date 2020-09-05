@@ -4,14 +4,10 @@ import db from "../database/connections";
 export default class IdController{
 
     //get the id with the files or return undefined
-    async getMargins(request: Request, response: Response){
+    async index(request: Request, response: Response){
         const {template} = request.query;
 
-        const templateMargins = await db('template_margins')
-            .where('template', '=', template as string)
-            .select('template_margins.top','template_margins.right','template_margins.bottom','template_margins.left');
-
-        return response.json(templateMargins[0]);
+        return response.json({"a": "b"});
     }
 
     //create an id with the files

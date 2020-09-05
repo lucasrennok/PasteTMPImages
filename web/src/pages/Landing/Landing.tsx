@@ -44,12 +44,15 @@ function Landing() {
         reader.readAsArrayBuffer(allFiles[0]);
         reader.onloadend = function(){
             console.log(reader.result);
+            // Convert to string and put at db
             
             //I can store reader.result at database... name and type too
             //@ts-ignore
             let newfile = new File([reader.result], allFiles[0].name, {type: allFiles[0].type});
-            console.log(newfile);
-            saveAs(newfile)
+            //@ts-ignore
+            let newblob = new Blob([reader.result], {type: allFiles[0].type});
+            console.log(newblob);
+            saveAs(newblob)
         }
         // saveAs(File)
     }

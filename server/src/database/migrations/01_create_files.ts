@@ -12,8 +12,6 @@ export async function up(knex: Knex){
             .onUpdate('CASCADE');
 
         table.binary('file').notNullable();
-
-        //Os arquivos aqui... kk
     });
 }
 
