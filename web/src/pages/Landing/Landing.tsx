@@ -4,8 +4,10 @@ import './styles.css'
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Dropzone from 'react-dropzone';
 import { saveAs } from 'file-saver';
+import { getRandomId } from '../../utils/getRandomId';
 
 function Landing() {
+    const [urlIdFiles, setUrlIdFiles] = useState('');
     const [allFiles, setAllFiles] = useState([]);
     const [allFilesText, setAllFilesText] = useState([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)]);
 
@@ -28,7 +30,14 @@ function Landing() {
     }
 
     function handlePasteIt(){
-        saveAs(allFiles[0])
+        const id = getRandomId();
+        //Save at db
+        setUrlIdFiles('ID: '+ id + ' | Link: ' + 'localhost:3000/'+id);
+        // saveAs(allFiles[0])
+
+        //Reset files
+        setAllFiles([])
+        setAllFilesText([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)])
     }
 
     return (
@@ -47,6 +56,7 @@ function Landing() {
                 )}
             </Dropzone>
             <button type="button" onClick={handlePasteIt} disabled={allFiles.length>0? false: true}>Paste it</button>
+            {urlIdFiles}
         </div>
     );
 }
