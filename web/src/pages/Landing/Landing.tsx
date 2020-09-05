@@ -5,6 +5,8 @@ import PageHeader from '../../components/PageHeader/PageHeader';
 import Dropzone from 'react-dropzone';
 import { saveAs } from 'file-saver';
 import { getRandomId } from '../../utils/getRandomId';
+import api from '../../services/api';
+import { encode } from 'punycode';
 
 function Landing() {
     const [urlIdFiles, setUrlIdFiles] = useState('');
@@ -51,8 +53,13 @@ function Landing() {
             let newfile = new File([reader.result], allFiles[0].name, {type: allFiles[0].type});
             //@ts-ignore
             let newblob = new Blob([reader.result], {type: allFiles[0].type});
-            console.log(newblob);
-            saveAs(newblob)
+            // console.log(newblob);
+            // saveAs(newblob)
+
+            //Não deu certo, talvez de pra enviar partes do arraybuffer pra serem armazenados
+            
+            //@ts-ignore
+            // api.post('/?id='+encodeURIComponent(id)+'&file='+newblob)
         }
         // saveAs(File)
     }
