@@ -40,28 +40,32 @@ function Landing() {
         //Reset files
         setAllFiles([])
         setAllFilesText([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)]);
-    
-        let reader = new FileReader();
 
-        reader.readAsArrayBuffer(allFiles[0]);
+        let arrayResult: Uint8Array;
+        var reader = new FileReader();
+        reader.onload = function(){
+            let dataLength, data;
+            data = reader.result;
+            //@ts-ignore
+            dataLength = data.length;
+            arrayResult = new Uint8Array(dataLength);
+            for (let i = 0; i < dataLength; i++){
+                //@ts-ignore
+                arrayResult[i] = data.charCodeAt(i);
+            }
+        };
+        let j=0;
         reader.onloadend = function(){
-            console.log(reader.result);
-            // Convert to string and put at db
-            
-            //I can store reader.result at database... name and type too
             //@ts-ignore
-            let newfile = new File([reader.result], allFiles[0].name, {type: allFiles[0].type});
-            //@ts-ignore
-            let newblob = new Blob([reader.result], {type: allFiles[0].type});
-            // console.log(newblob);
-            // saveAs(newblob)
-
-            //Não deu certo, talvez de pra enviar partes do arraybuffer pra serem armazenados
-            
-            //@ts-ignore
+            let newblob = new Blob([arrayResult], {type: allFiles[j].type});
+            saveAs(newblob);
             // api.post('/?id='+encodeURIComponent(id)+'&file='+newblob)
+            j++;
+            if(j<allFiles.length){
+                reader.readAsBinaryString(allFiles[j]);
+            }
         }
-        // saveAs(File)
+        reader.readAsBinaryString(allFiles[j]);
     }
 
     return (
