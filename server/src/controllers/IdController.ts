@@ -7,32 +7,47 @@ export default class IdController{
     async index(request: Request, response: Response){
         const {id} = request.query;
 
-        console.log(id)
-        const selectedFiles = db('files')
+        console.log('GET:',id)
+        const selectedFiles = await db('files')
             .select('*')
             .where('files.id_url', '=', id as string)
 
-        return response.json(selectedFiles);
+        if(selectedFiles.length==0){
+            return response.status(400).json({
+                error: "nothing"
+            })
+        }
+        return response.status(201).json(selectedFiles);
     }
 
     //create an id with the files
     async create(request: Request, response: Response){
         const {
             id,
+            filename,
+            type,
             file
         } = request.body;
     
+        if(id.length!==6){
+            return response.status(400).json({
+                error: "ID is wrong."
+            })
+        }
+
         const trx = await db.transaction();
         try{
-            await trx('id').insert({
-                id
+            await trx('id_url').insert({
+                id_url: id
             });
             
             await trx('files').insert({
                 id_url: id,
+                filename,
+                type,
                 file
             });
-            
+
             await trx.commit();
     
             return response.status(201).send();

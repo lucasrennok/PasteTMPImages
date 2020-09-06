@@ -6,11 +6,13 @@ export async function up(knex: Knex){
 
         table.string('id_url')
             .notNullable()
-            .references('id')
-            .inTable('id')
+            .references('id_url')
+            .inTable('id_url')
             .onDelete('CASCADE')
             .onUpdate('CASCADE');
 
+        table.string('filename').notNullable();
+        table.string('type').notNullable();
         table.binary('file').notNullable();
     });
 }

@@ -57,9 +57,21 @@ function Landing() {
         let j=0;
         reader.onloadend = function(){
             //@ts-ignore
-            let newblob = new Blob([arrayResult], {type: allFiles[j].type});
-            saveAs(newblob);
-            // api.post('/?id='+encodeURIComponent(id)+'&file='+newblob)
+            // let newblob = new Blob([arrayResult], {type: allFiles[j].type});
+            // saveAs(newblob);
+            //@ts-ignore
+            let filename = allFiles[j].name
+            //@ts-ignore
+            let type = allFiles[j].type
+            let file = arrayResult
+
+            api.post('', {
+                id,
+                filename,
+                type,
+                file
+            })
+
             j++;
             if(j<allFiles.length){
                 reader.readAsBinaryString(allFiles[j]);
