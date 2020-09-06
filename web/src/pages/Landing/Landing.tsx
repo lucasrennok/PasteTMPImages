@@ -6,6 +6,8 @@ import Dropzone from 'react-dropzone';
 import { saveAs } from 'file-saver';
 import { getRandomId } from '../../utils/getRandomId';
 import api from '../../services/api';
+import { str2vector } from '../../utils/str2vector';
+import { vector2uint8array } from '../../utils/vector2uint8array';
 
 function Landing() {
     const [urlIdFiles, setUrlIdFiles] = useState('');
@@ -63,30 +65,8 @@ function Landing() {
             let file = arrayResult.toString()
 
             // var buffer = new Buffer(file);
-            function str2vector(word: string){
-                let vector = []
-                let num=''
-                for(let i=0; i<word.length; i++){
-                    if(word.charAt(i)!=','){
-                        num+=word.charAt(i);
-                    }else{
-                        vector[vector.length] = parseInt(num)
-                        num='';
-                    }
-                }
-                vector[vector.length] = parseInt(num);
-                return vector;
-            }
+            
             const vector = str2vector(file)
-
-            function vector2uint8array(vector: Number[]){
-                let arrayuint = new Uint8Array(vector.length);
-                for (let i = 0; i < vector.length; i++){
-                    //@ts-ignore
-                    arrayuint[i] = vector[i];
-                }
-                return arrayuint;
-            }
             const newUint = vector2uint8array(vector);
 
             //@ts-ignore
