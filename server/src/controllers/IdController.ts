@@ -22,6 +22,7 @@ export default class IdController{
 
     //create an id with the files
     async create(request: Request, response: Response){
+
         const {
             id,
             filename,
@@ -30,6 +31,7 @@ export default class IdController{
         } = request.body;
     
         if(id.length!==6){
+            console.log('Id is wrong.')
             return response.status(400).json({
                 error: "ID is wrong."
             })
