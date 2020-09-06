@@ -6,7 +6,6 @@ import Dropzone from 'react-dropzone';
 import { saveAs } from 'file-saver';
 import { getRandomId } from '../../utils/getRandomId';
 import api from '../../services/api';
-import { encode } from 'punycode';
 
 function Landing() {
     const [urlIdFiles, setUrlIdFiles] = useState('');
@@ -56,14 +55,43 @@ function Landing() {
         };
         let j=0;
         reader.onloadend = function(){
-            //@ts-ignore
-            // let newblob = new Blob([arrayResult], {type: allFiles[j].type});
-            // saveAs(newblob);
+            
             //@ts-ignore
             let filename = allFiles[j].name
             //@ts-ignore
             let type = allFiles[j].type
-            let file = arrayResult
+            let file = arrayResult.toString()
+
+            // var buffer = new Buffer(file);
+            function str2vector(word: string){
+                let vector = []
+                let num=''
+                for(let i=0; i<word.length; i++){
+                    if(word.charAt(i)!=','){
+                        num+=word.charAt(i);
+                    }else{
+                        vector[vector.length] = parseInt(num)
+                        num='';
+                    }
+                }
+                vector[vector.length] = parseInt(num);
+                return vector;
+            }
+            const vector = str2vector(file)
+
+            function vector2uint8array(vector: Number[]){
+                let arrayuint = new Uint8Array(vector.length);
+                for (let i = 0; i < vector.length; i++){
+                    //@ts-ignore
+                    arrayuint[i] = vector[i];
+                }
+                return arrayuint;
+            }
+            const newUint = vector2uint8array(vector);
+
+            //@ts-ignore
+            let newblob = new Blob([newUint], {type: allFiles[j].type});
+            saveAs(newblob)
 
             api.post('', {
                 id,
