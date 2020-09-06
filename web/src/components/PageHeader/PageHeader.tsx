@@ -17,7 +17,7 @@ const PageHeader: React.FC<PageHeaderProps>= (pageHeaderProps) => {
             </div>
             <div className="inputBox">
                 <label>File Id</label>
-                <input type="text" defaultValue="0"></input>
+                <input type="text" defaultValue={idPaste}></input>
                 <button type="button">Search</button>
             </div>
         </div>

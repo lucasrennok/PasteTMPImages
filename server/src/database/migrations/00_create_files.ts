@@ -4,12 +4,7 @@ export async function up(knex: Knex){
     return knex.schema.createTable('files', table => {
         table.increments('id').notNullable();
 
-        table.string('id_url')
-            .notNullable()
-            .references('id_url')
-            .inTable('id_url')
-            .onDelete('CASCADE')
-            .onUpdate('CASCADE');
+        table.string('id_url').notNullable();
 
         table.string('filename').notNullable();
         table.string('type').notNullable();

@@ -39,12 +39,9 @@ export default class IdController{
 
         console.log('id post:',id);
 
-        const trx = await db.transaction();
+        let trx = await db.transaction();
+        
         try{
-            await trx('id_url').insert({
-                id_url: id
-            });
-            
             await trx('files').insert({
                 id_url: id,
                 filename,

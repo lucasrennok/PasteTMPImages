@@ -66,12 +66,12 @@ function Landing() {
 
             // var buffer = new Buffer(file);
             
-            const vector = str2vector(file)
-            const newUint = vector2uint8array(vector);
+            // const vector = str2vector(file)
+            // const newUint = vector2uint8array(vector);
 
             //@ts-ignore
-            let newblob = new Blob([newUint], {type: allFiles[j].type});
-            saveAs(newblob)
+            // let newblob = new Blob([newUint], {type: allFiles[j].type});
+            // saveAs(newblob)
 
             api.post('', {
                 id,
