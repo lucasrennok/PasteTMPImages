@@ -31,7 +31,7 @@ function Landing() {
     function handlePasteIt(){
         const id = getRandomId();
         //Save at db
-        setUrlIdFiles('ID: '+ id + ' | Link: ' + 'localhost:3000/'+id);
+        setUrlIdFiles('ID: '+ id + ' | Link: ' + 'localhost:3000/paste/'+id);
     
         console.log(allFiles)
         //Reset files

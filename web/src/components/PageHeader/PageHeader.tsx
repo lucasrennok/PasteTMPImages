@@ -19,6 +19,7 @@ const PageHeader: React.FC<PageHeaderProps>= (pageHeaderProps) => {
                 if(response.data.length===0){
                     alert('Id is wrong.')
                 }else{
+                    //Redirect to filepage
                     console.log(response.data)
                 }
             })

@@ -6,8 +6,8 @@ import { str2vector } from '../../utils/str2vector';
 import { vector2uint8array } from '../../utils/vector2uint8array';
 import { saveAs } from 'file-saver';
 
-function FilePage(){
-
+const FilePage = (props: any) => {
+    console.log(props.match.params.fileId)
     
     // var buffer = new Buffer(file);
             
@@ -17,9 +17,10 @@ function FilePage(){
     // // @ts-ignore
     // let newblob = new Blob([newUint], {type: allFiles[j].type});
     // saveAs(newblob)
-    
+
     return (
         <div className="page-file">
+            <PageHeader idPaste={props.match.params.fileId} />
             <h1>aaaa</h1>
         </div>
     );
