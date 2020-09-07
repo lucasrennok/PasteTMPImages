@@ -1,1 +1,5 @@
+# Ignore node_modules
 \node_modules
+
+#Ignore database because it can become bigger that github would supports
+\database.sqlite
