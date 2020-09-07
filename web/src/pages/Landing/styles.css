@@ -23,4 +23,21 @@ button{
     margin-top: 0.5rem;
     border-radius: 5rem;
     padding: 0.3rem 1rem;
+    transition-duration: 0.5s;
+}
+
+button:hover{
+    transition-duration: 0.5s;
+    opacity: 80%;
+}
+
+a{
+    text-decoration: none;
+    color: var(--color-text-base);
+    transition-duration: 0.4s;
+}
+
+a:hover{
+    opacity: 70%;
+    transition-duration: 0.4s;
 }

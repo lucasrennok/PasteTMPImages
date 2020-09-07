@@ -4,9 +4,10 @@ import PageHeader from '../../components/PageHeader/PageHeader';
 import Dropzone from 'react-dropzone';
 import { getRandomId } from '../../utils/getRandomId';
 import api from '../../services/api';
+import { Link } from 'react-router-dom';
 
 function Landing() {
-    const [urlIdFiles, setUrlIdFiles] = useState('');
+    const [urlIdFiles, setUrlIdFiles] = useState(<div></div>);
     const [allFiles, setAllFiles] = useState([]);
     const [allFilesText, setAllFilesText] = useState([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)]);
 
@@ -31,7 +32,9 @@ function Landing() {
     function handlePasteIt(){
         const id = getRandomId();
         //Save at db
-        setUrlIdFiles('ID: '+ id + ' | Link: ' + 'localhost:3000/paste/'+id);
+        const redirectRoute = "/paste/"+id;
+        const outputId = (<div><h3>ID: {id} | Link: <Link to={redirectRoute}>http://localhost:3000/paste/{id}</Link> </h3></div>);
+        setUrlIdFiles(outputId);
     
         console.log(allFiles)
         //Reset files
