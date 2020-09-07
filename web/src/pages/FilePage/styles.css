@@ -13,8 +13,10 @@
 }
 
 td,tr,th{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 0 3.2rem;
+}
+
+.downloadButtons{
+    border: none;
+    background-color: #00000000;
 }

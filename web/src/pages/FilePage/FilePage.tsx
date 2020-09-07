@@ -5,6 +5,7 @@ import { str2vector } from '../../utils/str2vector';
 import { vector2uint8array } from '../../utils/vector2uint8array';
 import { saveAs } from 'file-saver';
 import api from '../../services/api';
+import downloadIcon from '../../assets/images/icons/downloadIcon.png'
 
 const FilePage = (props: any) => {
     const idReceived = props.match.params.fileId;
@@ -45,7 +46,10 @@ const FilePage = (props: any) => {
                         const filename = response.data[i].filename;
                         const type = response.data[i].type;
                         const fileData = response.data[i].file;
-                        const downloadButton = (<button onClick={() => handleDownloadFile(filename,type,fileData)}>Down</button>);
+                        const downloadButton = (
+                            <button className="downloadButtons" onClick={() => handleDownloadFile(filename,type,fileData)}>
+                                <img src={downloadIcon} width="50"/>
+                            </button>);
                         tableFiles[tableFiles.length] = (
                             <tr>
                                 <td>{filename}</td>
