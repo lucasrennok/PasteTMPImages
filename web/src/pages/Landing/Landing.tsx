@@ -20,7 +20,7 @@ function Landing() {
             newAllFilesText[i] = (<p key={i}>Name: {allFilesVector[i].name} | Size: {Math.round(allFilesVector[i].size/(1024*1024)*100)/100}MB</p>)
             filesSize += allFilesVector[i].size;
         }
-        if(filesSize/(1024*1024)<=5){
+        if(filesSize/(1024*1024)<=5.1){
             setAllFiles(allFilesVector);
             //@ts-ignore
             setAllFilesText(newAllFilesText);
