@@ -9,7 +9,7 @@ import downloadIcon from '../../assets/images/icons/downloadIcon.png'
 
 const FilePage = (props: any) => {
     const idReceived = props.match.params.fileId;
-    const [data, setData] = useState([(<h1>Loading...</h1>)])
+    const [data, setData] = useState([(<h2 id="idTitle">Loading...</h2>)])
     const [tableDataFiles, setTableDataFiles] = useState([(<div></div>)])
 
     function handleDownloadFile(filename: string, type: string, fileData: string){
@@ -21,16 +21,15 @@ const FilePage = (props: any) => {
     }
     
     useEffect(()=>{
-        setData([(<h1>Nothing to see here</h1>)])
+        setData([(<h2 id="idTitle">Nothing to see here</h2>)])
         if(idReceived.length===10){
             api.get('?id='+idReceived).then(response => {
                 if(response.data.length===0){
-                    setData([(<h1>This Id not exists.</h1>)])
+                    setData([(<h2 id="idTitle">This Id not exists.</h2>)])
                 }else{
                     setData([(
                     <div className="dataBox">
-                        <h1>ID: {idReceived}</h1>
-                        <h3>DATA:</h3>
+                        <h2 id="idTitle">ID: {idReceived}</h2>
                     </div>
                     )])
                     
@@ -48,7 +47,7 @@ const FilePage = (props: any) => {
                         const fileData = response.data[i].file;
                         const downloadButton = (
                             <button className="downloadButtons" onClick={() => handleDownloadFile(filename,type,fileData)}>
-                                <img src={downloadIcon} width="50"/>
+                                <img src={downloadIcon} width="50" alt="download" />
                             </button>);
                         tableFiles[tableFiles.length] = (
                             <tr>
@@ -63,7 +62,7 @@ const FilePage = (props: any) => {
                 }
             })
         }else{
-            setData([(<h1>Id is wrong.</h1>)])
+            setData([(<h2 id="idTitle">Id is wrong.</h2>)])
         }
     },[idReceived])
     

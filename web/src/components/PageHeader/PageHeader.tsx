@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import './styles.css'
 import { Redirect } from 'react-router-dom';
+import logoImg from '../../assets/images/logo.png'
+import searchIcon from '../../assets/images/icons/searchIcon.png'
 
 interface PageHeaderProps{
     idPaste: string;
@@ -26,13 +28,16 @@ const PageHeader: React.FC<PageHeaderProps>= (pageHeaderProps) => {
     return (
         <div className="page-header">
             <div className="headerText">
-                <h1>Hey! Drop your file</h1>
-                <h3>Copy-Paste anything you want, then get it from anywhere</h3>
+                <h1 className="titleText"><img src={logoImg} alt="file" width="50"/>Hey! Drop your file</h1>
+                <h3 className="titleText">Copy-Paste anything, then get it from anywhere</h3>
             </div>
             <div className="inputBox">
-                <label>File Id</label>
+                <label>Files Id</label>
                 <input type="text" defaultValue={idPaste} onChange={e => setIdPaste(e.target.value)}></input>
-                <button type="button" onClick={handleSearchFiles}>Search</button>
+                <button type="button" id="searchButton" onClick={handleSearchFiles}>
+                    <img src={searchIcon} alt="search" width="30"/>
+                    Search
+                </button>
                 {redirect}
             </div>
         </div>

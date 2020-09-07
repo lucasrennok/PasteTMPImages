@@ -13,7 +13,28 @@
     margin: 1rem;
 }
 
+.titleText{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleText img{
+    margin-right: 1rem;
+}
+
+#searchButton{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 @media(min-width: 700px){
+    .titleText{
+        justify-content: flex-start;
+    }
+
     .page-header{
         flex-direction: row;
     }

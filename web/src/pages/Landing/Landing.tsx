@@ -5,6 +5,7 @@ import Dropzone from 'react-dropzone';
 import { getRandomId } from '../../utils/getRandomId';
 import api from '../../services/api';
 import { Link } from 'react-router-dom';
+import pasteIcon from '../../assets/images/icons/pasteIcon.png'
 
 function Landing() {
     const [urlIdFiles, setUrlIdFiles] = useState(<div></div>);
@@ -17,7 +18,7 @@ function Landing() {
         let filesSize = 0;
         for(let i in allFilesVector){
             //@ts-ignore
-            newAllFilesText[i] = (<p key={i}>Name: {allFilesVector[i].name} | Size: {Math.round(allFilesVector[i].size/(1024*1024)*100)/100}MB</p>)
+            newAllFilesText[i] = (<p key={i}><strong>Name:</strong> {allFilesVector[i].name} - <strong>Size:</strong> {Math.round(allFilesVector[i].size/(1024*1024)*100)/100}MB</p>)
             filesSize += allFilesVector[i].size;
         }
         if(filesSize/(1024*1024)<=5.1){
@@ -33,7 +34,13 @@ function Landing() {
         const id = getRandomId();
         //Save at db
         const redirectRoute = "/paste/"+id;
-        const outputId = (<div><h3>ID: {id} | Link: <Link to={redirectRoute}>http://localhost:3000/paste/{id}</Link> </h3></div>);
+        const outputId = (
+        <div>
+            <p>
+                <strong>ID:</strong> {id} - <strong>Link:</strong> 
+                <Link to={redirectRoute}>http://localhost:3000/paste/{id}</Link> 
+            </p>
+        </div>);
         setUrlIdFiles(outputId);
     
         console.log(allFiles)
@@ -93,7 +100,10 @@ function Landing() {
                     </section>
                 )}
             </Dropzone>
-            <button type="button" onClick={handlePasteIt} disabled={allFiles.length>0? false: true}>Paste it</button>
+            <button type="button" id="pasteButton" onClick={handlePasteIt} disabled={allFiles.length>0? false: true}>
+                <img src={pasteIcon} alt="paste" width="30"/>
+                Paste it
+            </button>
             {urlIdFiles}
         </div>
     );

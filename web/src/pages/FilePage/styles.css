@@ -20,3 +20,7 @@ td,tr,th{
     border: none;
     background-color: #00000000;
 }
+
+#idTitle{
+    margin: 1rem;
+}
