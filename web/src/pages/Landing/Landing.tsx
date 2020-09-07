@@ -34,6 +34,7 @@ function Landing() {
         let id = getRandomId();
         let flag = 0;
 
+        // Create new ID if the ID already exists
         while(flag===0){
             await api.get('?id='+id).then(response => {
                 if(response.data.length===0){
@@ -44,7 +45,7 @@ function Landing() {
             });
         }
 
-        //Save at db
+        //Set an output
         const redirectRoute = "/paste/"+id;
         const outputId = (
         <div>
@@ -55,12 +56,14 @@ function Landing() {
         </div>);
         setUrlIdFiles(outputId);
     
-        //Reset files
+        //Reset files and text
         setAllFiles([])
         setAllFilesText([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)]);
 
         let arrayResult: Uint8Array;
         var reader = new FileReader();
+
+        //Create Uint8Array
         reader.onload = function(){
             let dataLength, data;
             data = reader.result;
@@ -72,15 +75,17 @@ function Landing() {
                 arrayResult[i] = data.charCodeAt(i);
             }
         };
+
+        //When Uint8Array finish
         let j=0;
         reader.onloadend = function(){
-            
             //@ts-ignore
             let filename = allFiles[j].name
             //@ts-ignore
             let type = allFiles[j].type
             let file = arrayResult.toString()
 
+            //Post file
             api.post('', {
                 id,
                 filename,
@@ -88,11 +93,13 @@ function Landing() {
                 file
             })
 
+            //Read the next files
             j++;
             if(j<allFiles.length){
                 reader.readAsBinaryString(allFiles[j]);
             }
         }
+        //Read the first file
         reader.readAsBinaryString(allFiles[j]);
     }
 
