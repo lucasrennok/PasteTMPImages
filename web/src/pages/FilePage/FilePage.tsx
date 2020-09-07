@@ -21,9 +21,11 @@ const FilePage = (props: any) => {
         saveAs(fileInstance)
     }
 
-    //This function will click on all the download buttons
-    function handleClickOnAllButtons(){
-
+    //This function will call all functions created in arrayAllButtons
+    function handleClickOnAllButtons(arrayAllButtons: any){
+        for(let i=0; i<arrayAllButtons.length; i++){
+            arrayAllButtons[i]();
+        }
     }
     
     //When the page loads first time
@@ -51,6 +53,9 @@ const FilePage = (props: any) => {
                         </tbody>
                     )];
 
+                    let arrayAllButtons: any;
+                    arrayAllButtons = [];
+
                     //Create a table with all the files received from the id
                     for(let i=0; i<response.data.length; i++){
                         const filename = response.data[i].filename;
@@ -69,6 +74,9 @@ const FilePage = (props: any) => {
                                 </tr>
                             </tbody>
                         );
+
+                        //Put the handle function in the array
+                        arrayAllButtons[arrayAllButtons.length] = () => handleDownloadFile(filename,type,fileData);
                     }
 
                     //If there are more than 1 file, display an option to download all files
@@ -79,7 +87,7 @@ const FilePage = (props: any) => {
                                     <td key={"filename"+tableFiles.length.toString()}>All Files</td>
                                     <td key={"type"+tableFiles.length.toString()}>All Types</td>
                                     <td key={"download"+tableFiles.length.toString()}>
-                                        <button className="allButtons" onClick={() => handleClickOnAllButtons()}>
+                                        <button className="allButtons" onClick={() => handleClickOnAllButtons(arrayAllButtons)}>
                                             <img src={downloadIcon} width="50" alt="download" />
                                         </button>
                                     </td>
