@@ -31,7 +31,20 @@ function Landing() {
     }
 
     function handlePasteIt(){
-        const id = getRandomId();
+        let id = getRandomId();
+        // let flag = 0;
+
+        // while(flag === 0){
+        //     //Search if exists
+        //     api.get('?id='+encodeURIComponent(id)).then(response => {
+        //         if(response.data.length===0){
+        //             flag = 1;
+        //         }else{
+        //             id = getRandomId();
+        //         }
+        //     });
+        // }
+
         //Save at db
         const redirectRoute = "/paste/"+id;
         const outputId = (
@@ -43,7 +56,6 @@ function Landing() {
         </div>);
         setUrlIdFiles(outputId);
     
-        console.log(allFiles)
         //Reset files
         setAllFiles([])
         setAllFilesText([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)]);
