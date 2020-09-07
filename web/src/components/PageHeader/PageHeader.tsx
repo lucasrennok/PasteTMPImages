@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './styles.css'
+import api from '../../services/api';
+import { ifError } from 'assert';
 
 interface PageHeaderProps{
     idPaste: string;
 }
 
 const PageHeader: React.FC<PageHeaderProps>= (pageHeaderProps) => {    
-    const idPaste = pageHeaderProps.idPaste;
+    const [idPaste, setIdPaste] = useState(pageHeaderProps.idPaste);
+
+    function handleSearchFiles(){
+        if(idPaste.length!==10){
+            alert('Id is wrong.')
+        }else{
+            api.get('?id='+encodeURIComponent(idPaste)).then(response => {
+                if(response.data.length===0){
+                    alert('Id is wrong.')
+                }else{
+                    console.log(response.data)
+                }
+            })
+        }
+    }
 
     return (
         <div className="page-header">
@@ -17,8 +33,8 @@ const PageHeader: React.FC<PageHeaderProps>= (pageHeaderProps) => {
             </div>
             <div className="inputBox">
                 <label>File Id</label>
-                <input type="text" defaultValue={idPaste}></input>
-                <button type="button">Search</button>
+                <input type="text" defaultValue={idPaste} onChange={e => setIdPaste(e.target.value)}></input>
+                <button type="button" onClick={handleSearchFiles}>Search</button>
             </div>
         </div>
     );

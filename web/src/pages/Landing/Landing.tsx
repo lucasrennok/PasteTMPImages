@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
 import './styles.css'
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Dropzone from 'react-dropzone';
-import { saveAs } from 'file-saver';
 import { getRandomId } from '../../utils/getRandomId';
 import api from '../../services/api';
-import { str2vector } from '../../utils/str2vector';
-import { vector2uint8array } from '../../utils/vector2uint8array';
 
 function Landing() {
     const [urlIdFiles, setUrlIdFiles] = useState('');
@@ -63,15 +59,6 @@ function Landing() {
             //@ts-ignore
             let type = allFiles[j].type
             let file = arrayResult.toString()
-
-            // var buffer = new Buffer(file);
-            
-            // const vector = str2vector(file)
-            // const newUint = vector2uint8array(vector);
-
-            //@ts-ignore
-            // let newblob = new Blob([newUint], {type: allFiles[j].type});
-            // saveAs(newblob)
 
             api.post('', {
                 id,
