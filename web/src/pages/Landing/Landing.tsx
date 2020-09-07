@@ -30,20 +30,19 @@ function Landing() {
         }
     }
 
-    function handlePasteIt(){
+    async function handlePasteIt(){
         let id = getRandomId();
-        // let flag = 0;
+        let flag = 0;
 
-        // while(flag === 0){
-        //     //Search if exists
-        //     api.get('?id='+encodeURIComponent(id)).then(response => {
-        //         if(response.data.length===0){
-        //             flag = 1;
-        //         }else{
-        //             id = getRandomId();
-        //         }
-        //     });
-        // }
+        while(flag===0){
+            await api.get('?id='+id).then(response => {
+                if(response.data.length===0){
+                    flag = 1;
+                }else{
+                    id = getRandomId();
+                }
+            });
+        }
 
         //Save at db
         const redirectRoute = "/paste/"+id;
