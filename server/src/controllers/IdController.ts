@@ -10,7 +10,7 @@ export default class IdController{
 
         console.log('GET:',id)
         const selectedFiles = await db('files')
-            .select('*')
+            .select('files.filename', 'files.type', 'files.file')
             .where('files.id_url', '=', id as string)
 
         if(selectedFiles.length==0){

@@ -7,11 +7,11 @@ const app = express();
 
 app.use(cors());
 
-app.use(bodyParser.urlencoded({limit: '6mb', extended: true}));
-app.use(bodyParser.json({limit: '6mb'}));
+app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
+app.use(bodyParser.json({limit: '20mb'}));
 
-app.use(express.urlencoded({limit: '6mb', extended: true}))
-app.use(express.json({limit: '6mb'}));
+app.use(express.urlencoded({limit: '20mb', extended: true}))
+app.use(express.json({limit: '20mb'}));
 
 app.use(routes);
 
