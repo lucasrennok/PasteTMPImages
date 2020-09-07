@@ -16,7 +16,7 @@ td,tr,th{
     padding: 0 3.2rem;
 }
 
-.downloadButtons{
+.downloadButtons,.allButtons{
     border: none;
     background-color: #00000000;
 }

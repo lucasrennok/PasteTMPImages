@@ -1,5 +1,6 @@
 import Knex from 'knex';
 
+//Create a 'files' table
 export async function up(knex: Knex){
     return knex.schema.createTable('files', table => {
         table.increments('id').notNullable();
@@ -12,6 +13,7 @@ export async function up(knex: Knex){
     });
 }
 
+//Drop table when something gone wrong
 export async function down(knex: Knex){
     return knex.schema.dropTable('files');
 }

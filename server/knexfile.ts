@@ -1,5 +1,6 @@
 import path from 'path';
 
+//Config to set the migrations path and connection path
 module.exports = {
     client: 'sqlite3',
     connection: {

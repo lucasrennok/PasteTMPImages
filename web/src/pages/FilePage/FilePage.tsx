@@ -6,13 +6,13 @@ import { vector2uint8array } from '../../utils/vector2uint8array';
 import { saveAs } from 'file-saver';
 import api from '../../services/api';
 import downloadIcon from '../../assets/images/icons/downloadIcon.png'
-import { table } from 'console';
 
 const FilePage = (props: any) => {
     const idReceived = props.match.params.fileId;
     const [data, setData] = useState([(<h2 id="idTitle" key="idTitle">Loading...</h2>)])
     const [tableDataFiles, setTableDataFiles] = useState([(<tbody key="tbody0"><tr key="0"></tr></tbody>)])
 
+    //Put this function at the download buttons to download file
     function handleDownloadFile(filename: string, type: string, fileData: string){
         const vector = str2vector(fileData)
         const newUint = vector2uint8array(vector);
@@ -20,7 +20,13 @@ const FilePage = (props: any) => {
         let fileInstance = new File([newUint], filename,{type: type});
         saveAs(fileInstance)
     }
+
+    //This function will click on all the download buttons
+    function handleClickOnAllButtons(){
+
+    }
     
+    //When the page loads first time
     useEffect(()=>{
         setData([(<h2 id="idTitle" key="idTitle">Nothing to see here</h2>)])
         if(idReceived.length===10){
@@ -34,6 +40,7 @@ const FilePage = (props: any) => {
                     </div>
                     )])
                     
+                    //Table column titles
                     let tableFiles = [(
                         <tbody key="tbody0">
                             <tr key="0">
@@ -44,6 +51,7 @@ const FilePage = (props: any) => {
                         </tbody>
                     )];
 
+                    //Create a table with all the files received from the id
                     for(let i=0; i<response.data.length; i++){
                         const filename = response.data[i].filename;
                         const type = response.data[i].type;
@@ -63,6 +71,24 @@ const FilePage = (props: any) => {
                         );
                     }
 
+                    //If there are more than 1 file, display an option to download all files
+                    if(response.data.length>1){
+                        tableFiles[tableFiles.length] = (
+                            <tbody key={"tbody"+tableFiles.length.toString()}>
+                                <tr key={tableFiles.length.toString()}>
+                                    <td key={"filename"+tableFiles.length.toString()}>All Files</td>
+                                    <td key={"type"+tableFiles.length.toString()}>All Types</td>
+                                    <td key={"download"+tableFiles.length.toString()}>
+                                        <button className="allButtons" onClick={() => handleClickOnAllButtons()}>
+                                            <img src={downloadIcon} width="50" alt="download" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        );
+                    }
+
+                    //Display table
                     setTableDataFiles(tableFiles);
                 }
             })

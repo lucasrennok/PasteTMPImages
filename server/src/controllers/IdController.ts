@@ -1,18 +1,19 @@
 import {Request, Response} from 'express';
 import db from "../database/connections";
-import { json } from 'body-parser';
 
+//Controller to create files with an ID and send data of an ID
 export default class IdController{
 
-    //get the id with the files or return undefined
+    //Get all the files with the respective ID 
     async index(request: Request, response: Response){
         const {id} = request.query;
 
         console.log('GET:',id)
         const selectedFiles = await db('files')
             .select('files.filename', 'files.type', 'files.file')
-            .where('files.id_url', '=', id as string)
+            .where('files.id_url', '=', id as string);
 
+        //If nothing found, return []
         if(selectedFiles.length==0){
             return response.status(201).json(
                 []
@@ -21,7 +22,7 @@ export default class IdController{
         return response.status(201).json(selectedFiles);
     }
 
-    //create an id with the files
+    //Create files
     async create(request: Request, response: Response){
         const {
             id,
@@ -30,6 +31,7 @@ export default class IdController{
             file
         } = request.body;
     
+        //If the ID is wrong, return status 400
         if(id.length!==10){
             console.log('Id is wrong.')
             return response.status(400).json({
@@ -37,11 +39,12 @@ export default class IdController{
             })
         }
 
-        console.log('id post:',id);
+        console.log('ID POST:',id);
 
         let trx = await db.transaction();
         
         try{
+            //Insert into 'files' table
             await trx('files').insert({
                 id_url: id,
                 filename,

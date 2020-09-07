@@ -12,6 +12,8 @@ function Landing() {
     const [allFiles, setAllFiles] = useState([]);
     const [allFilesText, setAllFilesText] = useState([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)]);
 
+    //This function starts when files are dropped at dropzone
+    //It will verify the size of the files
     function handleAllFiles(allFilesVector: any){
         //@ts-ignore
         let newAllFilesText = [];
@@ -30,6 +32,8 @@ function Landing() {
         }
     }
 
+    //This function will post the files and save at the database
+    //It starts when 'paste it' button is clicked
     async function handlePasteIt(){
         let id = getRandomId();
         let flag = 0;
@@ -45,7 +49,7 @@ function Landing() {
             });
         }
 
-        //Set an output
+        //Set an output to display
         const redirectRoute = "/paste/"+id;
         const outputId = (
         <div>
@@ -56,14 +60,14 @@ function Landing() {
         </div>);
         setUrlIdFiles(outputId);
     
-        //Reset files and text
+        //Reset arrays: files and text
         setAllFiles([])
         setAllFilesText([(<p key="default">Drag 'n' drop some files here, or click to select files</p>)]);
 
         let arrayResult: Uint8Array;
         var reader = new FileReader();
 
-        //Create Uint8Array
+        //Create Uint8Array when FileReader is reading the file
         reader.onload = function(){
             let dataLength, data;
             data = reader.result;
@@ -76,7 +80,7 @@ function Landing() {
             }
         };
 
-        //When Uint8Array finish
+        //When Uint8Array is already created, send it to the database
         let j=0;
         reader.onloadend = function(){
             //@ts-ignore
@@ -85,7 +89,7 @@ function Landing() {
             let type = allFiles[j].type
             let file = arrayResult.toString()
 
-            //Post file
+            //Post file to save at db
             api.post('', {
                 id,
                 filename,
@@ -99,6 +103,7 @@ function Landing() {
                 reader.readAsBinaryString(allFiles[j]);
             }
         }
+
         //Read the first file
         reader.readAsBinaryString(allFiles[j]);
     }

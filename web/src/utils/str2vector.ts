@@ -1,4 +1,5 @@
 
+//Convert string to an integer array
 export function str2vector(word: string){
     let vector = []
     let num=''

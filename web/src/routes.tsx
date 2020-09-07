@@ -4,6 +4,7 @@ import Landing from './pages/Landing/Landing';
 import FilePage from './pages/FilePage/FilePage'
 
 function Routes(){
+    //Accepted routes are here
     return (
         <BrowserRouter>
             <Route path="/" exact component={Landing} />
