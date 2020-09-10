@@ -37,6 +37,9 @@ Go to the 'web' folder and put:
 
 **:star: SERVER:**
 
+To create the database, go to the 'server' folder and put:
+> yarn knex:migrate
+
 Go to the 'server' folder and put:
 > yarn start
 
