@@ -34,7 +34,7 @@ const FilePage = (props: any) => {
         if(idReceived.length===10){
             api.get('?id='+idReceived).then(response => {
                 if(response.data.length===0){
-                    setData([(<h2 id="idTitle" key="idTitle">This Id not exists.</h2>)])
+                    setData([(<h2 id="idTitle" key="idTitle">This Id not exists or expired.</h2>)])
                 }else{
                     setData([(
                     <div className="dataBox" key="dataBox">
