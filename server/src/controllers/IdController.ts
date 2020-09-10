@@ -54,6 +54,15 @@ export default class IdController{
 
             await trx.commit();
     
+            //To delete after 5min
+            setTimeout(async ()=>{
+                console.log('Deleting...')
+                await db('files')
+                    .where('files.id_url','=',id)
+                    .where('files.filename','=',filename)
+                    .del();
+            },300000);
+
             return response.status(201).send();
         }catch(err){
             await trx.rollback();
