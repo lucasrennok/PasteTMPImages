@@ -57,10 +57,12 @@ export default class IdController{
             //To delete after 5min
             setTimeout(async ()=>{
                 console.log('Deleting...')
+                await db.raw("PRAGMA auto_vacuum = FULL;")
                 await db('files')
                     .where('files.id_url','=',id)
                     .where('files.filename','=',filename)
                     .del();
+                await db.raw("VACUUM;")
             },300000);
 
             return response.status(201).send();
