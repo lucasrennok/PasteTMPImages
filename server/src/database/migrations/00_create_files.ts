@@ -3,7 +3,7 @@ import Knex from 'knex';
 //Create a 'files' table
 export async function up(knex: Knex){
     return knex.schema.createTable('files', table => {
-        table.increments('id').notNullable();
+        table.increments('id').primary();
 
         table.string('id_url').notNullable();
 
