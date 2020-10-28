@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import './styles.css'
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import logoImg from '../../assets/images/logo.png'
 import searchIcon from '../../assets/images/icons/searchIcon.png'
 
@@ -30,10 +30,10 @@ const PageHeader: React.FC<PageHeaderProps>= (pageHeaderProps) => {
 
     return (
         <div className="page-header">
-            <div className="headerText">
+            <Link to="/" className="headerText">
                 <h1 className="titleText"><img src={logoImg} alt="file" width="50"/>Hey! Drop your file</h1>
                 <h3 className="titleText">Copy-Paste anything, then get it from anywhere</h3>
-            </div>
+            </Link>
             <div className="inputBox">
                 <label>Files Id</label>
                 <input type="text" defaultValue={idPaste} onChange={e => setIdPaste(e.target.value)}></input>
